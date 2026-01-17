@@ -1,0 +1,1 @@
+nella classe controller, dichiarare le variabili statiche url, user e pass rispettivamente all'url, user e alla password del database postgesql usato
