@@ -19,17 +19,12 @@ public class oggetto extends JPanel {
 			setBackground(Color.LIGHT_GRAY);
 			JPanel temp= new JPanel();
 			temp.setLayout(new BoxLayout(temp,BoxLayout.Y_AXIS));
-			temp.setBackground(Color.LIGHT_GRAY);
 			
 			JPanel nome_tipo=new JPanel();
 			nome_tipo.setLayout(new BoxLayout(nome_tipo,BoxLayout.X_AXIS));
-			
 			nome_tipo.add(new JLabel(tmp[0]));
-			
-			nome_tipo.setBackground(Color.LIGHT_GRAY);
 			nome_tipo.add(Box.createRigidArea(new Dimension(1,0)));
 			nome_tipo.add(Box.createHorizontalGlue());
-			
 			nome_tipo.add(new JLabel(tmp[3]));
 			temp.add(nome_tipo);
 			
@@ -37,13 +32,9 @@ public class oggetto extends JPanel {
 			
 			JPanel categoria_consegna=new JPanel();
 			categoria_consegna.setLayout(new BoxLayout(categoria_consegna,BoxLayout.X_AXIS));
-
 			categoria_consegna.add(new JLabel(tmp[1]));
-			
-			categoria_consegna.setBackground(Color.LIGHT_GRAY);
 			categoria_consegna.add(Box.createRigidArea(new Dimension(1,0)));
 			categoria_consegna.add(Box.createHorizontalGlue());
-			
 			categoria_consegna.add(new JLabel(tmp[4]));	
 			
 			temp.add(categoria_consegna);			
@@ -82,7 +73,6 @@ public class oggetto extends JPanel {
 				pulsant.add(new JLabel(tmp[5]));
 				pulsant.add(Box.createRigidArea(new Dimension(10,0)));
 				pulsant.add(accettazione);
-				pulsant.setBackground(Color.LIGHT_GRAY);
 				
 				temp.add(pulsant);
 			}else {

@@ -1,6 +1,5 @@
 package src;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,26 +17,18 @@ public class offerta extends JPanel {
 		
 		JPanel comp_vend=new JPanel();
 		comp_vend.setLayout(new BoxLayout(comp_vend,BoxLayout.X_AXIS));
-		
 		comp_vend.add(new JLabel(tmp[3]));
-		
-		comp_vend.setBackground(Color.LIGHT_GRAY);
 		comp_vend.add(Box.createRigidArea(new Dimension(1,0)));
 		comp_vend.add(Box.createHorizontalGlue());
-		
 		comp_vend.add(new JLabel(tmp[4]));
 		add(comp_vend);
 		comp_vend.setVisible(true);
 		
 		JPanel ogg_stat=new JPanel();
 		ogg_stat.setLayout(new BoxLayout(ogg_stat,BoxLayout.X_AXIS));
-		
 		ogg_stat.add(new JLabel(tmp[0]));
-		
-		ogg_stat.setBackground(Color.LIGHT_GRAY);
 		ogg_stat.add(Box.createRigidArea(new Dimension(1,0)));
 		ogg_stat.add(Box.createHorizontalGlue());
-		
 		ogg_stat.add(new JLabel(tmp[1]));
 		add(ogg_stat);
 		ogg_stat.setVisible(true);
@@ -54,7 +45,7 @@ public class offerta extends JPanel {
 		descfield.setBorder(new JTextField().getBorder());
 		descfield.setVisible(true);
 		JScrollPane sp= new JScrollPane(descfield);
-		sp.setMaximumSize(new Dimension(10000,50));
+		sp.setMaximumSize(new Dimension(5000,50));
 		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				
 		message.add(sp);
@@ -89,6 +80,7 @@ public class offerta extends JPanel {
 				revalidate();
 			}
 		});
+		System.out.println(tmp[tmp.length-1]);
 	    accettazione.setVisible(isvendor && tmp[tmp.length-2].contains("attesa"));
 		message.add(accettazione);
 		
@@ -102,11 +94,8 @@ public class offerta extends JPanel {
 				revalidate();
 			}
 		});
-		cancellazione.setVisible(!isvendor);
+		cancellazione.setVisible(!isvendor && aaa=="in attesa");
 		message.add(cancellazione);
-		
-		
-		message.setBackground(Color.LIGHT_GRAY);
 	    
 		add(message);
 		message.setVisible(true);

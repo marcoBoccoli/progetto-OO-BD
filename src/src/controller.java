@@ -5,12 +5,13 @@ import javax.swing.*;
 public class controller {
 	public static String url/*=sostituire con l'url del database*/;
 	public static String _user/*=sostituire con l'user del database*/;
-	public static String pass/*= sostituire con la password*/;
+	public static String pass/*=sostituire con la password*/;
 	private login log=null;
 	private login_logic log_logic=null;
 	private utente user=null;
 	private manipolazioneDB man=null;
 	private dataManipulation dat=null;
+	private catalogue_logic cat = null;
 	public void showSettings(String matr) {
 		new settings(matr,this);
 	}
@@ -39,14 +40,11 @@ public class controller {
 	public void do_login(login info) {
 		String tmp =log_logic.login(info.username, info.password);
 		if(tmp!="") {
-			log.dispose();
+			man = new manipolazioneDB(this);
+			dat = new dataManipulation();
+			cat =new catalogue_logic(this);
 			user= new utente(this,tmp, info.username);
-			if(man==null) {
-				man = new manipolazioneDB(this);
-			}
-			if(dat==null) {
-				dat = new dataManipulation();
-			}
+			log.dispose();
 		}
 	}
 	public void do_register(login info) {
@@ -58,22 +56,19 @@ public class controller {
 	}
 	
 	public String[] makeCatalogue(String matr, String wantobj,String wanttype) {
-		catalogue_logic tmp =new catalogue_logic();
-		return tmp.make(matr, wantobj, wanttype, this);
+		return cat.make(matr, wantobj, wanttype);
 	}
 	
 	public String[] makeInventory(String matr) {
-		catalogue_logic tmp =new catalogue_logic();
-		return tmp.inventory(matr, this);
+		return cat.inventory(matr);
 	}
 	
 	public String[] getinfo(int index){
-		object_logic tmp=new object_logic();
-		return tmp.getinfo(index, this);
+		return cat.getinfo(index);
 	}
 	
 	public String[] getoffersind(String matr, boolean isvendor) {
-		offer_ids tmp=new offer_ids();
+		offer_logic tmp=new offer_logic();
 		return tmp.getofferids(matr, isvendor);
 	}
 	
@@ -82,32 +77,31 @@ public class controller {
 		return tmp.getofferinfo(index);
 	}
 	
-	public void evokewindow(int type, String matricola) {
+	public void evokewindow(int type, String info) {
 		switch(type) {
 		case 1:
-			new window(matricola, this);
+			new window(info, this);
 			break;
 		case 2:
-			new window_offer(matricola.split(";") , this);
+			new window_offer(info, this);
 			break;
 		case 3:
 			if(confirm(0)==2) {
-				deleteinser(Integer.parseInt(matricola));
+				deleteinser(Integer.parseInt(info));
 			}
 			break;
 		case 4:
 			if(confirm(1)==2) {
-				deleteoffer(Integer.parseInt(matricola));
+				deleteoffer(Integer.parseInt(info));
 			}
 			break;
 		case 5:
 			int ret = confirm(2);
 			if(ret>=1) {
-				updateoffer(Integer.parseInt(matricola), ret==2);
+				updateoffer(Integer.parseInt(info), ret==2);
 			}
 			break;
 		}
-		
 	}
 	
 	public void createinser(String info) {
@@ -138,8 +132,8 @@ public class controller {
 		return dat.organizeDataAsBuyer(matr);
 	}
 	
-	public String getBoughtData(String matr) {
-		return dat.organizeBoughtData(matr);
+	public String getSoldData(String matr) {
+		return dat.organizeSoldData(matr);
 	}
 	
 	private int confirm(int opt) {

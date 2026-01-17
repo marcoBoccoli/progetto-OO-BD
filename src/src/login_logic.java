@@ -9,19 +9,21 @@ public class login_logic {
 	}
 	public String login(String username, String password) {
 		String ret="";
+		String errorString="non è stato possibile eseguire il login";
 		try (Connection conn = DriverManager.getConnection(controller.url, controller._user, controller.pass);
 			Statement stat=conn.createStatement();
 			)
 		{
 			ResultSet result = stat.executeQuery("SELECT matricola FROM \"Utente\" WHERE username='"+username+"' AND password='"+password+"'");
 			if(result != null && !result.next()) {
-				cont.error("non esiste un utente con le credenziali date, assicurasi dell'assenza di errori o registrarsi");
+				errorString="non esiste un utente con le credenziali date, assicurasi dell'assenza di errori o registrarsi";
+				throw new SQLException();
 			}else{
 				ret=result.getString(1);	
 			}
             conn.close();
         }catch(SQLException e){
-			cont.error("non è stato possibile eseguire il login");
+			cont.error(errorString);
     	}
 		return ret;
 	}

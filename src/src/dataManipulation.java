@@ -69,7 +69,7 @@ public class dataManipulation {
 		return ret;
 	}
 	
-	public String organizeBoughtData(String matr) {
+	public String organizeSoldData(String matr) {
 		String ret= "";
 		try (Connection conn = DriverManager.getConnection(controller.url, controller._user, controller.pass);
 				Statement stat=conn.createStatement();
@@ -78,7 +78,7 @@ public class dataManipulation {
 
 			    ResultSet result = stat.executeQuery("SELECT MIN(CAST(ins.costo AS integer )), AVG(CAST(ins.costo AS integer )), MAX(CAST(ins.costo AS integer ))\r\n"
 			    		+ "FROM \"Offerta\" offer INNER JOIN \"Inserzione\" ins ON offer.id_inserzione=ins.id_inserzione \r\n"
-			    		+ "WHERE matricola_compratore='"+matr+"' AND ins.tipo_inserzione='venduto';");
+			    		+ "WHERE matricola_venditore='"+matr+"' AND ins.tipo_inserzione='venduto' AND conferma=true;");
 				result.next();
 				ret= ret + result.getInt(1) + ";" + result.getInt(2) + ";" + result.getInt(3);
 				

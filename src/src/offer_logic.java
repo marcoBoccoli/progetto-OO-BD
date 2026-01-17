@@ -31,4 +31,33 @@ public class offer_logic {
 	    	
 		return ret;
 	}
+	
+	public String[] getofferids(String matr, boolean isvendor) {
+		String tmp;
+		String ret[]= {"vuoto"};
+		String runFunction;
+		if(isvendor) {
+			runFunction = "{ ? = CALL \"getofferreceived\"( ? )}";
+		}else {
+			runFunction = "{ ? = CALL \"getoffersent\"( ? )}";
+		}
+		try (Connection conn = DriverManager.getConnection(controller.url, controller._user, controller.pass);
+				CallableStatement stat=conn.prepareCall(runFunction);
+				)
+			{
+				stat.registerOutParameter(1, Types.VARCHAR);
+				stat.setString(2, matr);
+				
+				stat.executeUpdate();
+				tmp = stat.getString(1);
+				ret = tmp.split("-");
+
+	            conn.close();
+	        }catch(SQLException e){
+		        	e.getCause();
+		        	e.printStackTrace();
+	        }
+		return ret;
+	}
 }
+

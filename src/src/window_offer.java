@@ -10,8 +10,9 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class window_offer extends JFrame{
 	
-	public window_offer(String[] info, controller cont) {
+	public window_offer(String informazioni, controller cont) {
 		super("");
+		String info[]=informazioni.split(";");
 		String tmp=null;
 		if(info[2].contains("vendita")) {
 			tmp="si vuole offrire un altro prezzo al venditore?";
@@ -55,7 +56,6 @@ public class window_offer extends JFrame{
 		desc.setAlignmentX(CENTER_ALIGNMENT);
 		inserimenti.add(desc);
 		
-		
 		inserimenti.add(Box.createRigidArea(new Dimension(0,15)));
 		JButton conferma= new JButton("Conferma informazioni");
 		conferma.setAlignmentX(CENTER_ALIGNMENT);
@@ -79,6 +79,5 @@ public class window_offer extends JFrame{
 				}
 			}
 		});
-        
 	}
 }
