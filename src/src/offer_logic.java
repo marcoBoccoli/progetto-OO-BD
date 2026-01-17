@@ -1,0 +1,34 @@
+package src;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Types;
+
+public class offer_logic {
+	public String[] getofferinfo(int index) {
+		String tmp;
+		String ret[]= {"vuoto"};
+		String runFunction;
+		runFunction = "{ ? = CALL \"getofferinfo\"( ? )}";
+		try (Connection conn = DriverManager.getConnection(controller.url, controller.user, controller.pass);
+				CallableStatement stat=conn.prepareCall(runFunction);
+				)
+			{
+				stat.registerOutParameter(1, Types.VARCHAR);
+				stat.setInt(2, index);
+				
+				stat.executeUpdate();
+				tmp = stat.getString(1);
+				ret = tmp.split(";");
+				
+	            conn.close();
+	        }catch(SQLException e){
+		        	e.getCause();
+		        	e.printStackTrace();
+	        }
+	    	
+		return ret;
+	}
+}
