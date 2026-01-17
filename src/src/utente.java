@@ -359,26 +359,34 @@ public class utente extends JFrame {
 		pulsanti.setVisible(true);
 		offers.add(pulsanti);
 		
-		ricevute.setVisible(false);
-		offers.add(ricevute);
+		ricevute.setVisible(true);
+		JScrollPane sp2 =new JScrollPane(ricevute);
+		sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp2.setVisible(false);
+		offers.add(sp2);
 		
 		mandate.setVisible(true);
-		offers.add(mandate);		
+		JScrollPane sp1 =new JScrollPane(mandate);
+		sp1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp1.setVisible(true);
+		offers.add(sp1);		
 		
 		offers.setVisible(true);
 		opzioni[0].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				in=0;
-				mandate.setVisible(true);
-				ricevute.setVisible(false);
+				sp1.setVisible(true);
+				sp2.setVisible(false);
+				offers.revalidate();
 			}
 		});
 		opzioni[1].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mandate.setVisible(false);
-				ricevute.setVisible(true);
+				sp1.setVisible(false);
+				sp2.setVisible(true);
+				offers.revalidate();
 			}
 		});
 	}

@@ -8,8 +8,6 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class oggetto extends JPanel {
-
-	private JButton accettazione;
 	
 	public oggetto(String index, controller cont, boolean inv, String matr) {
 		String[] tmp=cont.getinfo(Integer.valueOf(index));
@@ -55,8 +53,17 @@ public class oggetto extends JPanel {
 			
 			temp.add(Box.createRigidArea(new Dimension(10,5)));
 			if(inv) {
-				accettazione= new JButton("Manda offerta");
-				temp.add(accettazione);
+			    //String nome= cont.getName();
+
+				JButton recensioni= new JButton("mostra recensioni per "+tmp[tmp.length-2].split(";")[1]);
+				recensioni.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						cont.showrev(tmp[tmp.length-2].split(";")[0]);
+					}
+				});
+				
+				JButton accettazione= new JButton("Manda offerta");
 				accettazione.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -64,10 +71,11 @@ public class oggetto extends JPanel {
 					}
 				});
 				
+
 				JPanel pulsant= new JPanel();
 				pulsant.setLayout(new BoxLayout(pulsant,BoxLayout.X_AXIS));
-				
 				pulsant.add(sp);
+				pulsant.add(recensioni);
 				pulsant.add(Box.createHorizontalGlue());
 				Integer.valueOf(index);
 				pulsant.add(new JLabel(tmp[5]));
@@ -81,7 +89,7 @@ public class oggetto extends JPanel {
 				canc.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						cont.evokewindow(3, tmp[tmp.length-1]);
+						cont.evokewindow(3, tmp[7]);
 						
 					}
 				});

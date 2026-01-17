@@ -30,6 +30,9 @@ public class window_confirmation extends JFrame{
 				tmp="si è sicuri di voler accettare l'offerta?";
 				tmp2="Accetta offerta";
 				break;
+			case 3:
+				tmp="la vostra recensione (non sarà possibile combiarla in un secondo momento):";
+				break;
 			default:
 				tmp="sicuro di voler continuare?";
 				break;

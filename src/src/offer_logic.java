@@ -47,7 +47,7 @@ public class offer_logic {
 			{
 				stat.registerOutParameter(1, Types.VARCHAR);
 				stat.setString(2, matr);
-				
+
 				stat.executeUpdate();
 				tmp = stat.getString(1);
 				ret = tmp.split("-");

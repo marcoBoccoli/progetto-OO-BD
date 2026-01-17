@@ -89,13 +89,12 @@ public class catalogue_logic {
 	            ret = tmp.split(";");
 	    		
 	            ResultSet result = stat2.executeQuery("SELECT username FROM \"Utente\" WHERE matricola='"+ret[ret.length-2]+"'");
-				if(result != null && !result.next()) {
-					ret[ret.length-2]=result.getString(1);
-				}
+				result.next();
+	            ret[ret.length-2]= ret[ret.length-2]+";"+ result.getString(1);
 	            
 	            conn.close();
 	        }catch(SQLException e){
-	        	cont.error("non esiste ");
+	        	cont.error("non esiste");
 	        	e.getCause();
 	        	e.printStackTrace();
 	    	}

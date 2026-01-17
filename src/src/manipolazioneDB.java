@@ -7,6 +7,69 @@ public class manipolazioneDB {
 	public manipolazioneDB(controller tmp) {
 		cont=tmp;
 	}
+	
+	public String[] showreviews(String index) {
+		String info[]={"vuoto"};
+		try (Connection conn = DriverManager.getConnection(controller.url, controller._user, controller.pass);
+				)
+			{
+			    Statement stat=conn.createStatement();
+
+			    ResultSet result=stat.executeQuery("SELECT recensione FROM \"Recensione\" WHERE  matricola='"+index+"'");
+			    String res="";
+			    while(result.next()) {
+			    	res= res + result.getString(1) + ";";
+			    }
+			    if(res.length()!=0) {
+				    res=(String) res.subSequence(0, res.length()-1);
+				    info= res.split(";");
+			    }
+	            conn.close();
+	        }catch(SQLException e){
+	        	e.printStackTrace();
+	        	cont.error("è stato impossibile completare l'operazione");
+	    	}
+		return info;
+	}
+	
+	
+	public String getmatr(String dati) {
+		String info="vuoto";
+		try (Connection conn = DriverManager.getConnection(controller.url, controller._user, controller.pass);
+				)
+			{
+			    Statement stat=conn.createStatement();
+
+			    ResultSet result=stat.executeQuery("SELECT matricola_venditore FROM \"Offerta\" WHERE  id_offerta="+dati);
+			    result.next();
+			    info= result.getString(1);
+			    
+	            conn.close();
+	        }catch(SQLException e){
+	        	e.printStackTrace();
+	        	cont.error("è stato impossibile completare l'operazione");
+	    	}
+		return info;
+	}
+	
+	public void aggiungiRecensione(String[] info) {
+		try (Connection conn = DriverManager.getConnection(controller.url, controller._user, controller.pass);
+				)
+			{
+			    Statement stat=conn.createStatement();
+
+			    stat.executeUpdate("INSERT INTO \"Recensione\" VALUES ('"+info[0]+"','"+info[2]+"')");
+			    
+			    stat.executeUpdate("UPDATE \"Offerta\" SET harecen= true WHERE id_offerta="+info[1]);
+			    
+	            conn.close();
+	        }catch(SQLException e){
+	        	e.printStackTrace();
+	        	cont.error("è stato impossibile completare l'operazione");
+	    	}
+	}
+	
+	
 	public void creainserzione(String dati) {
 		String info[]= {"vuoto"};
 		try (Connection conn = DriverManager.getConnection(controller.url, controller._user, controller.pass);

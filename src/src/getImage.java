@@ -13,6 +13,7 @@ public class getImage {
 			BufferedImage myPicture = ImageIO.read(new File(path));
 			pic = myPicture.getScaledInstance(100*(1237/217), 100, Image.SCALE_DEFAULT);
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

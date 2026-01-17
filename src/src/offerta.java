@@ -52,16 +52,19 @@ public class offerta extends JPanel {
 		message.add(Box.createHorizontalGlue());
 		message.add(Box.createRigidArea(new Dimension(10,0)));
 		
-		String aaa="offerta già rifiutata";
+		String aaa="";
 		if(isvendor) {
-			if(tmp[tmp.length-1].contains("true")) {
+			if(tmp[tmp.length-2].contains("true")) {
 				aaa="offerta già accettata";
+			}else if(tmp[tmp.length-2].contains("false")) {
+				aaa="offerta già rifiutata";
 			}
 		}else {
+
 			aaa="in attesa";
-			if(tmp[tmp.length-1].contains("false")) {
+			if(tmp[tmp.length-2].contains("false")) {
 				aaa="rifiutata";
-			}else if(tmp[tmp.length-1].contains("true")) {
+			}else if(tmp[tmp.length-2].contains("true")) {
 				aaa="accettata";
 			}
 		}
@@ -76,11 +79,20 @@ public class offerta extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				cont.evokewindow(5, index);
-				repaint();
-				revalidate();
 			}
 		});
-		System.out.println(tmp[tmp.length-1]);
+		JButton recensione= new JButton("lascia una recensione");
+		recensione.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				cont.evokewindow(6, index);
+
+			}
+		});
+		recensione.setVisible(!isvendor && aaa.contains("accettata") && tmp[tmp.length-1].contains("no"));
+		message.add(recensione);
+		
 	    accettazione.setVisible(isvendor && tmp[tmp.length-2].contains("attesa"));
 		message.add(accettazione);
 		

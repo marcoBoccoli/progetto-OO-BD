@@ -34,7 +34,7 @@ public class controller {
 	}
 	
 	public void start() {
-		log=new login(this, new getImage("image/logo/logo.png").pic);
+		log=new login(this, new getImage("src\\src\\logo.png").pic);
 		log_logic=new login_logic(this);
 	}
 	public void do_login(login info) {
@@ -83,7 +83,7 @@ public class controller {
 			new window(info, this);
 			break;
 		case 2:
-			new window_offer(info, this);
+			new window_offer(true,info, this);
 			break;
 		case 3:
 			if(confirm(0)==2) {
@@ -100,6 +100,10 @@ public class controller {
 			if(ret>=1) {
 				updateoffer(Integer.parseInt(info), ret==2);
 			}
+			break;
+		case 6:
+			String temp1=man.getmatr(info);
+			new window_offer(false,temp1+";"+info+";"+temp1, this);
 			break;
 		}
 	}
@@ -145,5 +149,18 @@ public class controller {
 		
 		test.dispose();
 		return window.ret;
+	}
+
+	
+	public void recensire(String[] info) {
+		man.aggiungiRecensione(info);
+	}
+	
+	public void showrev(String info) {
+		new recensione(info, this);
+	}
+	
+	public String[] getReviews(String index) {
+		return man.showreviews(index);
 	}
 }

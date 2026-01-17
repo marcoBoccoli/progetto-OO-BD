@@ -10,7 +10,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class window_offer extends JFrame{
 	
-	public window_offer(String informazioni, controller cont) {
+	public window_offer(boolean opt,String informazioni, controller cont) {
 		super("");
 		String info[]=informazioni.split(";");
 		String tmp=null;
@@ -18,8 +18,11 @@ public class window_offer extends JFrame{
 			tmp="si vuole offrire un altro prezzo al venditore?";
 		}else if(info[2].contains("scambio")) {
 			tmp="si vuole scambiare con un oggetto diverso?";
-		}else {
+		}else if(info[2].contains("regalo")){
 			tmp="si vuole lasciare un messaggio al venditore?";
+		}else {
+			tmp="Come valutebbe la qualità del servizio offerto dall'utente?\n"
+					+ "(non sarà possibile modificare la rencensione in un secondo momento)";
 		}
 		
 		setLayout(new BorderLayout());
@@ -74,8 +77,13 @@ public class window_offer extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 			    info[2]=descfield.getText();
 				if(!info[2].contentEquals("")) {
-					cont.createoffer(info);
-					dispose();
+					if(opt) {
+						cont.createoffer(info);
+						dispose();	
+					}else {
+						cont.recensire(info);
+						dispose();
+					}
 				}
 			}
 		});
