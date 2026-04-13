@@ -5,7 +5,7 @@ import javax.swing.*;
 public class controller {
 	public static String url="jdbc:postgresql://localhost:5432/UNINA Swap"/*=sostituire con l'url del database*/;
 	public static String _user="postgres"/*=sostituire con l'user del database*/;
-	public static String pass="Bionicle008"/*=sostituire con la password*/;
+	public static String pass=""/*=sostituire con la password*/;
 	private login log=null;
 	private login_logic log_logic=null;
 	private utente user=null;
